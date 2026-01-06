@@ -1,0 +1,122 @@
+name: Deploy Docs
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  build-main:
+    runs-on: ubuntu-latest
+    outputs:
+      site-path: ${{ steps.upload.outputs.site-path }}
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: "maven"
+
+      - name: Generate Javadocs
+        run: mvn clean install javadoc:javadoc javadoc:aggregate -DskipTests
+
+      - name: Copy Javadocs
+        run: |
+          if [ -d target/site/apidocs ]; then
+            cp -r target/site/apidocs docs/docs/javadoc
+          fi
+
+      - name: Install MkDocs
+        run: pip install mkdocs mkdocs-material mkdocs-macros-plugin
+
+      - name: Build main docs
+        run: python -m mkdocs build -d site
+        working-directory: docs
+
+      - name: Upload main site
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-site
+          path: docs/site
+
+  build-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dev branch
+        uses: actions/checkout@v4
+        with:
+          ref: development
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: "maven"
+
+      - name: Generate Javadocs
+        run: mvn clean install javadoc:javadoc javadoc:aggregate -DskipTest
+
+      - name: Copy Javadocs
+        run: cp -r target/site/apidocs docs/docs/javadoc
+
+      - name: Install MkDocs
+        run: pip install mkdocs mkdocs-material mkdocs-macros-plugin
+
+      - name: Build snapshot docs
+        run: python -m mkdocs build -f mkdocs-snapshot.yml
+        working-directory: docs
+
+      - name: Upload snapshot site
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-site
+          path: docs/site
+
+  merge-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs:
+      - build-main
+      - build-snapshot
+    steps:
+      - name: Download main site
+        uses: actions/download-artifact@v4
+        with:
+          name: main-site
+          path: site
+
+      - name: Download snapshot site
+        uses: actions/download-artifact@v4
+        with:
+          name: snapshot-site
+          path: snapshot-site
+
+      - name: Copy snapshot into main site
+        run: |
+          if [[ -d site/snapshot ]]; then
+            rm -rf site/snapshot
+          fi
+          cp -r snapshot-site site/snapshot
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: site

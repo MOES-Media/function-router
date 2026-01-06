@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "development"
+  - package-ecosystem: "maven"
+    directory: "/function-router-core"
+    schedule:
+      interval: "weekly"
+    target-branch: "development"
+  - package-ecosystem: "maven"
+    directory: "/function-router-spring-mvc"
+    schedule:
+      interval: "weekly"
+    target-branch: "development"
+  - package-ecosystem: "maven"
+    directory: "/function-router-spring-boot-starter"
+    schedule:
+      interval: "weekly"
+    target-branch: "development"

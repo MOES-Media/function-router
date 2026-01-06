@@ -1,0 +1,40 @@
+name: Example Request
+description: Request a specific code example or integration scenario
+title: "[Example Request] "
+labels: [example, documentation]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Example Request
+
+  - type: input
+    id: technology
+    attributes:
+      label: Technology or Integration
+      description: What technology or integration do you need an example for? (e.g., HTTP, Messaging, Database, etc.)
+      placeholder: "HTTP REST endpoint"
+
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Use Case Description
+      description: Describe the routing scenario or use case you want an example for.
+      placeholder: |
+        e.g. "How to route HTTP requests to different functions based on path parameters and headers."
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Outcome
+      description: What should the example demonstrate or achieve?
+      placeholder: "Show how to configure function routing with multiple endpoints and conditional routing logic."
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other details, requirements, or references?
+      placeholder: "Add any other relevant information here, such as specific Spring Cloud Function features or routing patterns you're interested in."

@@ -1,0 +1,21 @@
+site_name: Function Router
+
+plugins:
+  - macros
+theme:
+  name: readthedocs
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Your First Scenario (jUnit): getting-started/first-scenario-junit.md
+      - Your First Scenario (Spring): getting-started/first-scenario-spring.md
+      - Examples: getting-started/examples.md
+  - Dev:
+    - JavaDocs: javadoc/index.html
+    - SNAPSHOT documentation: snapshot
+    - Code Coverage Report: https://app.codecov.io/gh/MOES-Media/function-router/
+
+repo_url: https://github.com/MOES-Media/function-router
+edit_uri: edit/main/docs/docs
