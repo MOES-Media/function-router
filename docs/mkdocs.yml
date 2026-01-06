@@ -1,0 +1,12 @@
+site_name: Function Router
+
+plugins:
+  - macros
+theme:
+  name: readthedocs
+
+nav:
+  - Home: index.md
+
+repo_url: https://github.com/MOES-Media/function-router
+edit_uri: edit/main/docs/docs
