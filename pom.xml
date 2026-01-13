@@ -26,7 +26,7 @@
     <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
     <maven.spotless.palantir.version>2.36.0</maven.spotless.palantir.version>
     <maven.jacoco.plugin.version>0.8.14</maven.jacoco.plugin.version>
-    <maven.javadoc.plugin.version>3.6.0</maven.javadoc.plugin.version>
+    <maven.javadoc.plugin.version>3.12.0</maven.javadoc.plugin.version>
   </properties>
   <modules>
     <module>function-router-core</module>
