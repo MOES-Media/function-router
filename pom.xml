@@ -22,7 +22,7 @@
     <maven.surefire.version>3.5.4</maven.surefire.version>
     <maven.license.plugin.version>5.0.0</maven.license.plugin.version>
     <maven.spotbugs.plugin.version>4.8.3.0</maven.spotbugs.plugin.version>
-    <maven.spotless.plugin.version>3.1.0</maven.spotless.plugin.version>
+    <maven.spotless.plugin.version>3.2.0</maven.spotless.plugin.version>
     <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
     <maven.spotless.palantir.version>2.36.0</maven.spotless.palantir.version>
     <maven.jacoco.plugin.version>0.8.14</maven.jacoco.plugin.version>
